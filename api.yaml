@@ -1,0 +1,97 @@
+openapi: 3.0.2
+info:
+  title: "Onyxia Save Request"
+  version: "1.0.0"
+  contact:
+    name: Воронюк Роман
+    email: voronyuk@surf.dev
+
+servers:
+  - url: https://api.onyxia.io/api/v1
+    description: Onyxia host server
+
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes 
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Bookmarks
+    description: Bookmarks requests descriptions
+    externalDocs:
+      description: Check the spec
+      url: Cunfluence.con #Здесь можно остаивть ссылку на спеку
+
+paths:
+  /bookmarks:
+    get:
+      description: Получение списка сохраненных новостей
+      tags:
+      - Bookmarks # Тэг, вместо надписи Default
+      responses:
+        "200":
+          description: |
+            `Список сохраненных новостей получен успешно`
+          content: 
+            application/json:
+              schema:
+                $ref: "models.yaml#/components/schemas/Bookmarks"
+        "401":
+          description: |
+            `Пользователь не авторизован`
+        "500":
+          description: |
+            `Что то пошло не так, повторите попытку.`
+    post:
+      description: Добавление новости в список сохраненных
+      tags:
+      - Bookmarks # Тэг, вместо надписи Default
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "models.yaml#/components/schemas/SaveBookmarkRequest"
+      responses:
+        "200":
+          description: |
+            `Новость успешно добавлена в список`
+        "401":
+          description: |
+            `Пользователь не авторизован`
+        "500":
+          description: |
+            `Что то пошло не так, повторите попытку.`
+    delete:
+      description: Удаление новости из списка сохраненных
+      tags:
+      - Bookmarks #Тэг, вместо надписи Default
+      - TestDelete #Тег для дублирования запроса в сваггере
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "models.yaml#/components/schemas/DeleteBookmarkRequest"
+      responses:
+        "200":
+          description: |
+            `Новость успешно удалена из списка`
+        "401":
+          description: |
+            `Пользователь не авторизован`
+        "500":
+          description: |
+            `Что то пошло не так, повторите попытку.`
+
+
+
+
+
+
+        

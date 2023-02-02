@@ -1,0 +1,106 @@
+components:
+  schemas:
+    Bookmarks:
+      type: object
+      properties:
+        data:
+          type: object
+          $ref: "#/components/schemas/BookmarksList"
+    BookmarksList:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: "#/components/schemas/Bookmark"
+    Bookmark:
+      type: object
+      properties:
+        id: 
+          type: string
+          description: Уникальный идентификатор новостного элемента
+          nullable: false
+          example: caa1dbe025f96a66cdd0dd918f39b79b
+        title:
+          type: string
+          description: Заголовок, который отображается на карточке новости
+          nullable: false
+          exmple: How the dynamics of phishing attacks are changing
+        summary: 
+          type: string
+          description: Краткое описание, которое отображается на карточке новости
+          nullable: true
+          example: In this Help Net Security video, Alex Paquette, COO at Ironscales, discusses the impact in terms of the time and energy required to defend against the never-ending and ever-evolving onslaught of phishing attacks.
+        url:
+          type: string
+          description: Ссылка на источник новости
+          nullable: false
+          example: https://www.helpnetsecurity.com/2022/11/28/phishing-attacks-impact-video/
+        source_name:
+          type: string
+          description: Название сточника новости
+          nullable: false
+          example: Help Net Security
+        topics:
+          type: array
+          items:
+            type: string
+          description: Темы новости, необходимы для ее поиска
+          nullable: true
+          example: ["Application Security", "Social Engineering / Phishing"]
+        timestamp:
+          type: integer
+          description: Время публикации новости
+          nullable: false
+          example: 1669613407000
+        bookmarked:
+          type: boolean
+          description: Признак сохранения новости
+          nullable: false
+          example: true       
+    SaveBookmarkRequest:
+      type: object
+      description: Сохранение новости
+      properties:
+        target:
+          type: object
+          properties:
+            iid:
+              type: string
+              description: Идентификатор новости
+              example: 2ae638b06506778a5f779054acb99cdc
+              nullable: false
+    DeleteBookmarkRequest:
+      type: object
+      description: Удаление новости
+      properties:
+        target:
+          type: object
+          properties:
+            iid:
+              type: string
+              description: Идентификатор новости
+              example: 2ae638b06506778a5f779054acb99cdc
+              nullable: false
+
+
+    MeditationReview:
+      type: object
+      properties:
+        meditationRate:
+          type: integer
+          description:  Оценка пользователя
+          example: 4
+          nullable: false 
+        dateReview:
+          type: string
+          description: Дата выставления ревью
+          example: 2022-07-07
+        userName:
+          type: string
+          description:  Имя пользователя, который написал отзыв
+          example: Воронюк Роман
+        textReview:
+          type: string
+          description: Отзыв пользователя
+          example: Медитация мне понадобилась после изучения сваггера, спасибо
